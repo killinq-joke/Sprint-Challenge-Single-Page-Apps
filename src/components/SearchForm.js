@@ -55,7 +55,7 @@ export default function SearchForm(props) {
                     type="text"
                     id="search"
                     name="search"
-                    placeholder="search"
+                    placeholder="Search by Name"
                     className="input"/>
                     <button  type="submit" >submit</button>
                     <ErrorMessage name="search" component="div" className="error"/>
