@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export default function SearchForm(props) {
   const setSearch = props.setSearch;
+  const [error, setError] = useState(false)
   const history = useHistory();
   const go = () => { 
     history.push("/characters/card");
@@ -27,12 +28,15 @@ export default function SearchForm(props) {
       axios
       .get(`https://rickandmortyapi.com/api/character/`)
       .then(res => {
-        
+        // console.log(res.data.results[0].name)
         res.data.results.map(el => {
-          if(values.search === el.name || values.search === el.name.toLowerCase() || values.search === el.name.toUpperCase()){
+          if(values.search.toLowerCase() === el.name.toLowerCase()){
             setSearch(el)
             go();
-           } 
+           } else {
+             setError(true);
+           }
+           
           
         })
       })
@@ -63,6 +67,7 @@ export default function SearchForm(props) {
               </Form>
               
           </Formik>
+          {error && <p>character not found</p>}
     </section>
   );
 }
