@@ -37,3 +37,10 @@ main {
 header h1 {
   text-align: center;
 }
+
+.error {
+  font-weight: 600;
+  font-size: 12px;
+  color: #b90606;
+
+}
