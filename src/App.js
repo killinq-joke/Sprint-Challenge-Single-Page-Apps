@@ -1,32 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import Header from "./components/Header.js";
 import axios from "axios";
-import CharacterList from './components/CharacterList'
+
+import WelcomePage from './components/WelcomePage';
+import CharacterList from './components/CharacterList';
+import CharacterCard from './components/CharacterCard';
 
 
 export default function App() {
-  // const [characters, setCharacters] = useState([])
+  const [characters, setCharacters] = useState([]);
+  const [search, setSearch] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //   .get(`https://rickandmortyapi.com/api/character/`)
-  //   .then(res => {
-  //     console.log(res.data.results)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // }, [])
+  console.log(search)
+
+  useEffect(() => {
+    axios
+    .get(`https://rickandmortyapi.com/api/character/`)
+    .then(res => {
+      setCharacters(res.data.results)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }, [])
 
   return (
     <main>
+      <Link to="/">HOME</Link>
       <Route exact path="/">
-        <Header />
+        <Header setSearch={setSearch}/>
+        <WelcomePage />
+      </Route>
+
+      <Route exact path="/characters/card">
+        <CharacterCard search={search}/>
       </Route>
       
       <Route exact path="/characters">
-        <CharacterList />
+        <CharacterList characters={characters} setCharacters={setCharacters}/>
       </Route>
     </main>
   );
